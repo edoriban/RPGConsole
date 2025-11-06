@@ -17,45 +17,45 @@ class ConsoleUI:
     """
 
     @staticmethod
-    def mostrar_bienvenida() -> None:
+    def show_welcome() -> None:
         """Display welcome message."""
-        print(Fore.YELLOW + "¡Bienvenido a las cavernas de la actividad 3!")
+        print(Fore.YELLOW + "Welcome to the caves of activity 4!")
 
     @staticmethod
-    def solicitar_nombre_heroe() -> str:
+    def prompt_hero_name() -> str:
         """
         Prompt user for hero name.
 
         Returns:
             Hero name entered by user
         """
-        return input(Fore.YELLOW + "Introduce el nombre de tu héroe: ")
+        return input(Fore.YELLOW + "Enter your hero's name: ")
 
     @staticmethod
-    def mostrar_estadisticas_heroe(heroe) -> None:
+    def show_hero_stats(hero) -> None:
         """
         Display hero statistics.
 
         Args:
-            heroe: Hero object with nombre, vidas, ataque attributes
+            hero: Hero object with name, health, attack attributes
         """
         print("------------------------------------------------")
-        print(f"Hola, {heroe.nombre}. Tus estadísticas son:")
-        print(f"  Vida: {heroe.vidas}")
-        print(f"  Ataque: {heroe.ataque}")
+        print(f"Hello, {hero.name}. Your statistics are:")
+        print(f"  Health: {hero.health}")
+        print(f"  Attack: {hero.attack}")
         print("------------------------------------------------")
 
     @staticmethod
-    def mostrar_menu_camino() -> None:
+    def show_path_menu() -> None:
         """Display path selection menu."""
-        print("Llegas a una bifurcación en el camino.")
-        print("Un camino lleva al bosque tranquilo, el otro a una cueva oscura.")
+        print("You arrive at a fork in the road.")
+        print("One path leads to the peaceful forest, the other to a dark cave.")
         print(" ")
-        print(Fore.YELLOW + "1. Ir por el bosque (Ruta Segura).")
-        print(Fore.YELLOW + "2. Entrar a la cueva (Ruta Peligrosa).")
+        print(Fore.YELLOW + "1. Go through the forest (Safe Route).")
+        print(Fore.YELLOW + "2. Enter the cave (Dangerous Route).")
 
     @staticmethod
-    def solicitar_decision_camino() -> int:
+    def get_path_choice() -> int:
         """
         Get path choice from user.
 
@@ -65,63 +65,63 @@ class ConsoleUI:
         return int(input())
 
     @staticmethod
-    def mostrar_camino_bosque() -> None:
+    def show_forest_path() -> None:
         """Display forest path message."""
-        print("Decides tomar el camino del bosque.")
-        print("Es un paseo agradable y llegas al pueblo sin incidentes.")
+        print("You decide to take the forest path.")
+        print("It's a pleasant walk and you arrive at the village without incident.")
 
     @staticmethod
-    def mostrar_entrada_cueva() -> None:
+    def show_cave_entrance() -> None:
         """Display cave entrance message."""
-        print("Con valentía, entras en la cueva oscura...")
+        print("Bravely, you enter the dark cave...")
 
     @staticmethod
-    def mostrar_monstruo_aparece(monstruo) -> None:
+    def show_monster_appears(monster) -> None:
         """
         Display monster appearance message.
 
         Args:
-            monstruo: Monster object with nombre attribute
+            monster: Monster object with name attribute
         """
-        print(f"¡Un {monstruo.nombre} salvaje aparece!")
+        print(f"A wild {monster.name} appears!")
 
     @staticmethod
-    def mostrar_inicio_combate() -> None:
+    def show_combat_start() -> None:
         """Display combat start message."""
-        print(Fore.YELLOW + "¡COMIENZA EL COMBATE!")
+        print(Fore.YELLOW + "COMBAT BEGINS!")
 
     @staticmethod
-    def mostrar_estado_combate(heroe, monstruo) -> None:
+    def show_combat_status(hero, monster) -> None:
         """
         Display current combat status.
 
         Args:
-            heroe: Hero object
-            monstruo: Monster object
+            hero: Hero object
+            monster: Monster object
         """
-        print("--- NUEVO TURNO ---")
-        print(f"Vida de {heroe.nombre}: {heroe.vidas}")
-        print(f"Vida del {monstruo.nombre}: {monstruo.vidas}")
+        print("--- NEW TURN ---")
+        print(f"{hero.name}'s Health: {hero.health}")
+        print(f"{monster.name}'s Health: {monster.health}")
         print(" ")
 
     @staticmethod
-    def mostrar_menu_combate() -> None:
+    def show_combat_menu() -> None:
         """Display combat action menu."""
-        print(Fore.YELLOW + "¿Qué harás?")
+        print(Fore.YELLOW + "What will you do?")
 
     @staticmethod
-    def mostrar_opciones_combate(heroe) -> None:
+    def show_combat_options(hero) -> None:
         """
         Display combat options.
 
         Args:
-            heroe: Hero object with ataque attribute
+            hero: Hero object with attack attribute
         """
-        print(Fore.YELLOW + f"1. Atacar ({heroe.ataque} de daño)")
-        print(Fore.YELLOW + "2. Defenderse (reduce el próximo golpe a la mitad)")
+        print(Fore.YELLOW + f"1. Attack ({hero.attack} damage)")
+        print(Fore.YELLOW + "2. Defend (reduces next hit by half)")
 
     @staticmethod
-    def solicitar_decision_combate() -> int:
+    def get_combat_choice() -> int:
         """
         Get combat choice from user.
 
@@ -131,95 +131,95 @@ class ConsoleUI:
         return int(input())
 
     @staticmethod
-    def mostrar_ataque_exitoso(atacante, defensor) -> None:
+    def show_successful_attack(attacker, defender) -> None:
         """
         Display successful attack message.
 
         Args:
-            atacante: Attacking character
-            defensor: Defending character
+            attacker: Attacking character
+            defender: Defending character
         """
-        print(Fore.GREEN + f"¡Atacas al {defensor.nombre} con todas tus fuerzas!")
-        print(Fore.GREEN + f"Le infliges {atacante.ataque} de daño.")
+        print(Fore.GREEN + f"You attack the {defender.name} with all your strength!")
+        print(Fore.GREEN + f"You deal {attacker.attack} damage.")
 
     @staticmethod
-    def mostrar_defensa_activada() -> None:
+    def show_defense_activated() -> None:
         """Display defense activation message."""
-        print(Fore.BLUE + "Te preparas para el impacto, subiendo tu guardia.")
+        print(Fore.BLUE + "You prepare for the impact, raising your guard.")
 
     @staticmethod
-    def mostrar_ataque_monstruo(monstruo) -> None:
+    def show_monster_attack(monster) -> None:
         """
         Display monster attack message.
 
         Args:
-            monstruo: Monster object
+            monster: Monster object
         """
-        print(f"El {monstruo.nombre} contraataca...")
+        print(f"The {monster.name} counterattacks...")
 
     @staticmethod
-    def mostrar_defensa_exitosa(dano: int) -> None:
+    def show_successful_defense(damage: int) -> None:
         """
         Display successful defense message.
 
         Args:
-            dano: Damage received after defense
+            damage: Damage received after defense
         """
-        print(Fore.BLUE + "¡Bloqueas la mayor parte del golpe!")
-        print(Fore.RED + f"Recibes solo {dano} de daño.")
+        print(Fore.BLUE + "You block most of the blow!")
+        print(Fore.RED + f"You only take {damage} damage.")
 
     @staticmethod
-    def mostrar_dano_completo(monstruo, dano: int) -> None:
+    def show_full_damage(monster, damage: int) -> None:
         """
         Display full damage message.
 
         Args:
-            monstruo: Monster object
-            dano: Damage received
+            monster: Monster object
+            damage: Damage received
         """
-        print(Fore.RED + "¡Recibes el golpe directo!")
-        print(Fore.RED + f"Pierdes {dano} de vida.")
+        print(Fore.RED + "You take the hit directly!")
+        print(Fore.RED + f"You lose {damage} health.")
 
     @staticmethod
-    def mostrar_victoria(monstruo) -> None:
+    def show_victory(monster) -> None:
         """
         Display victory message.
 
         Args:
-            monstruo: Defeated monster object
+            monster: Defeated monster object
         """
-        print(Fore.GREEN + f"¡VICTORIA! Has eliminado al {monstruo.nombre}.")
-        print(Fore.GREEN + "Encuentras un ¡Manual de Python!")
-        print(Fore.GREEN + "Tu aventura continúa...")
+        print(Fore.GREEN + f"VICTORY! You have defeated the {monster.name}.")
+        print(Fore.GREEN + "You find a Python Manual!")
+        print(Fore.GREEN + "Your adventure continues...")
 
     @staticmethod
-    def mostrar_derrota(monstruo) -> None:
+    def show_defeat(monster) -> None:
         """
         Display defeat message.
 
         Args:
-            monstruo: Monster that defeated the hero
+            monster: Monster that defeated the hero
         """
-        print(Fore.RED + f"Has sido derrotado por el {monstruo.nombre}... Fin del juego.")
+        print(Fore.RED + f"You have been defeated by the {monster.name}... Game over.")
 
     @staticmethod
-    def mostrar_decision_invalida() -> None:
+    def show_invalid_choice() -> None:
         """Display invalid choice message."""
-        print("Decisión inválida, turno perdido.")
+        print("Invalid choice, turn lost.")
 
     @staticmethod
-    def mostrar_fin_juego() -> None:
+    def show_game_over() -> None:
         """Display game over message."""
-        print("Te quedaste paralizado por la indecisión y un conejo te robó.")
-        print("Fin del juego.")
+        print("You were paralyzed by indecision and a rabbit robbed you.")
+        print("Game over.")
 
     @staticmethod
-    def mostrar_despedida(heroe) -> None:
+    def show_farewell(hero) -> None:
         """
         Display farewell message.
 
         Args:
-            heroe: Hero object
+            hero: Hero object
         """
         print("------------------------------------------------")
-        print(f"Fin de la demo. Gracias por jugar, {heroe.nombre}.")
+        print(f"End of demo. Thanks for playing, {hero.name}.")

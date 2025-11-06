@@ -6,30 +6,30 @@ Follows Single Responsibility Principle - only contains monster definitions.
 from typing import Dict, List
 
 # Monster catalog following Open/Closed Principle - can be extended without modification
-CATALOGO_MONSTRUOS: Dict[str, Dict[str, int]] = {
-    "Goblin": {"vidas": 60, "ataque": 12},
-    "Ogro": {"vidas": 60, "ataque": 12},
-    "Orco": {"vidas": 60, "ataque": 12},
-    "Slime": {"vidas": 60, "ataque": 12}
+MONSTER_CATALOG: Dict[str, Dict[str, int]] = {
+    "Goblin": {"health": 60, "attack": 12},
+    "Ogre": {"health": 60, "attack": 12},
+    "Orc": {"health": 60, "attack": 12},
+    "Slime": {"health": 60, "attack": 12}
 }
 
 
-def obtener_nombres_monstruos() -> List[str]:
+def get_monster_names() -> List[str]:
     """
     Get list of all available monster names.
 
     Returns:
         List of monster names
     """
-    return list(CATALOGO_MONSTRUOS.keys())
+    return list(MONSTER_CATALOG.keys())
 
 
-def obtener_stats_monstruo(nombre: str) -> Dict[str, int]:
+def get_monster_stats(name: str) -> Dict[str, int]:
     """
     Get monster stats by name.
 
     Args:
-        nombre: Monster name
+        name: Monster name
 
     Returns:
         Dictionary with monster stats
@@ -37,4 +37,4 @@ def obtener_stats_monstruo(nombre: str) -> Dict[str, int]:
     Raises:
         KeyError: If monster name doesn't exist
     """
-    return CATALOGO_MONSTRUOS[nombre].copy()
+    return MONSTER_CATALOG[name].copy()

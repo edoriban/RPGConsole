@@ -7,61 +7,61 @@ Open/Closed: Can be extended through inheritance.
 from abc import ABC, abstractmethod
 
 
-class Personaje(ABC):
+class Character(ABC):
     """
     Abstract base class for all characters in the game.
     Follows Single Responsibility Principle by only handling character state.
     """
 
-    def __init__(self, nombre: str, vidas: int, ataque: int):
+    def __init__(self, name: str, health: int, attack: int):
         """
         Initialize a character with basic attributes.
 
         Args:
-            nombre: Character name
-            vidas: Health points
-            ataque: Attack damage
+            name: Character name
+            health: Health points
+            attack: Attack damage
         """
-        self.nombre = nombre
-        self.vidas = vidas
-        self.ataque = ataque
-        self.esta_defendiendo = False
+        self.name = name
+        self.health = health
+        self.attack = attack
+        self.is_defending = False
 
     @abstractmethod
-    def atacar(self, enemigo) -> None:
+    def attack(self, enemy) -> None:
         """
         Abstract method for attacking an enemy.
         Must be implemented by concrete subclasses.
         """
         pass
 
-    def defender(self) -> None:
+    def defend(self) -> None:
         """
         Set defensive stance.
         Follows Open/Closed Principle - can be extended by subclasses.
         """
-        self.esta_defendiendo = True
+        self.is_defending = True
 
-    def recibir_dano(self, dano: int) -> None:
+    def take_damage(self, damage: int) -> None:
         """
         Apply damage to the character.
 
         Args:
-            dano: Amount of damage to apply
+            damage: Amount of damage to apply
         """
-        self.vidas -= dano
-        if self.vidas < 0:
-            self.vidas = 0
+        self.health -= damage
+        if self.health < 0:
+            self.health = 0
 
-    def esta_vivo(self) -> bool:
+    def is_alive(self) -> bool:
         """
         Check if character is still alive.
 
         Returns:
             True if character has health > 0, False otherwise
         """
-        return self.vidas > 0
+        return self.health > 0
 
-    def reset_defensa(self) -> None:
+    def reset_defense(self) -> None:
         """Reset defensive stance after a turn."""
-        self.esta_defendiendo = False
+        self.is_defending = False

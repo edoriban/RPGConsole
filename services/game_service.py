@@ -4,9 +4,9 @@ Orchestrates the main game flow and coordinates other services.
 """
 
 import random
-from models.heroe import Heroe
-from models.monstruo import Monstruo
-from data.monsters import obtener_nombres_monstruos, obtener_stats_monstruo
+from models.hero import Hero
+from models.monster import Monster
+from data.monsters import get_monster_names, get_monster_stats
 from services.combat_service import CombatService
 from ui.console_ui import ConsoleUI
 
@@ -28,71 +28,71 @@ class GameService:
         self.ui = ui
         self.combat_service = combat_service
 
-    def iniciar_juego(self) -> None:
+    def start_game(self) -> None:
         """Start and run the complete game."""
-        self.ui.mostrar_bienvenida()
+        self.ui.show_welcome()
 
-        nombre_heroe = self.ui.solicitar_nombre_heroe()
-        heroe = Heroe(nombre_heroe)
+        hero_name = self.ui.prompt_hero_name()
+        hero = Hero(hero_name)
 
-        self.ui.mostrar_estadisticas_heroe(heroe)
-        self._procesar_seleccion_camino(heroe)
+        self.ui.show_hero_stats(hero)
+        self._process_path_selection(hero)
 
-        self.ui.mostrar_despedida(heroe)
+        self.ui.show_farewell(hero)
 
-    def _procesar_seleccion_camino(self, heroe: Heroe) -> None:
+    def _process_path_selection(self, hero: Hero) -> None:
         """
         Handle path selection and subsequent game flow.
 
         Args:
-            heroe: Hero character
+            hero: Hero character
         """
-        self.ui.mostrar_menu_camino()
-        decision = self.ui.solicitar_decision_camino()
+        self.ui.show_path_menu()
+        choice = self.ui.get_path_choice()
 
-        if decision == 1:
-            self._procesar_camino_bosque()
-        elif decision == 2:
-            self._procesar_camino_cueva(heroe)
+        if choice == 1:
+            self._process_forest_path()
+        elif choice == 2:
+            self._process_cave_path(hero)
         else:
-            self.ui.mostrar_fin_juego()
+            self.ui.show_game_over()
 
-    def _procesar_camino_bosque(self) -> None:
+    def _process_forest_path(self) -> None:
         """Handle forest path - safe route."""
-        self.ui.mostrar_camino_bosque()
+        self.ui.show_forest_path()
 
-    def _procesar_camino_cueva(self, heroe: Heroe) -> None:
+    def _process_cave_path(self, hero: Hero) -> None:
         """
         Handle cave path - dangerous route with combat.
 
         Args:
-            heroe: Hero character
+            hero: Hero character
         """
-        self.ui.mostrar_entrada_cueva()
+        self.ui.show_cave_entrance()
 
-        monstruo = self._crear_monstruo_aleatorio()
-        self.ui.mostrar_monstruo_aparece(monstruo)
+        monster = self._create_random_monster()
+        self.ui.show_monster_appears(monster)
 
-        victoria = self.combat_service.iniciar_combate(heroe, monstruo)
+        victory = self.combat_service.start_combat(hero, monster)
 
-        if victoria:
-            self.ui.mostrar_victoria(monstruo)
+        if victory:
+            self.ui.show_victory(monster)
         else:
-            self.ui.mostrar_derrota(monstruo)
+            self.ui.show_defeat(monster)
 
-    def _crear_monstruo_aleatorio(self) -> Monstruo:
+    def _create_random_monster(self) -> Monster:
         """
         Create a random monster from the catalog.
 
         Returns:
             Randomly selected monster instance
         """
-        nombres = obtener_nombres_monstruos()
-        nombre_elegido = random.choice(nombres)
-        stats = obtener_stats_monstruo(nombre_elegido)
+        names = get_monster_names()
+        chosen_name = random.choice(names)
+        stats = get_monster_stats(chosen_name)
 
-        return Monstruo(
-            nombre=nombre_elegido,
-            vidas=stats["vidas"],
-            ataque=stats["ataque"]
+        return Monster(
+            name=chosen_name,
+            health=stats["health"],
+            attack=stats["attack"]
         )

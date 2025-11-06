@@ -16,7 +16,7 @@ def main():
     game_service = GameService(ui, combat_service)
 
     # Start the game
-    game_service.iniciar_juego()
+    game_service.start_game()
 
 
 if __name__ == "__main__":

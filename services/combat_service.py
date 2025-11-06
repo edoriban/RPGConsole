@@ -5,9 +5,9 @@ Handles all combat-related logic and calculations.
 
 import random
 from typing import Tuple, Optional
-from models.personaje import Personaje
-from models.heroe import Heroe
-from models.monstruo import Monstruo
+from models.character import Character
+from models.hero import Hero
+from models.monster import Monster
 from ui.console_ui import ConsoleUI
 
 
@@ -26,88 +26,88 @@ class CombatService:
         """
         self.ui = ui
 
-    def iniciar_combate(self, heroe: Heroe, monstruo: Monstruo) -> bool:
+    def start_combat(self, hero: Hero, monster: Monster) -> bool:
         """
         Execute complete combat sequence.
 
         Args:
-            heroe: Hero character
-            monstruo: Monster character
+            hero: Hero character
+            monster: Monster character
 
         Returns:
             True if hero wins, False if hero loses
         """
-        self.ui.mostrar_inicio_combate()
+        self.ui.show_combat_start()
 
-        while heroe.esta_vivo() and monstruo.esta_vivo():
-            self._ejecutar_turno(heroe, monstruo)
+        while hero.is_alive() and monster.is_alive():
+            self._execute_turn(hero, monster)
 
-        return heroe.esta_vivo()
+        return hero.is_alive()
 
-    def _ejecutar_turno(self, heroe: Heroe, monstruo: Monstruo) -> None:
+    def _execute_turn(self, hero: Hero, monster: Monster) -> None:
         """
         Execute a single combat turn.
 
         Args:
-            heroe: Hero character
-            monstruo: Monster character
+            hero: Hero character
+            monster: Monster character
         """
-        self.ui.mostrar_estado_combate(heroe, monstruo)
-        self.ui.mostrar_menu_combate()
-        self.ui.mostrar_opciones_combate(heroe)
+        self.ui.show_combat_status(hero, monster)
+        self.ui.show_combat_menu()
+        self.ui.show_combat_options(hero)
 
-        decision = self.ui.solicitar_decision_combate()
+        choice = self.ui.get_combat_choice()
 
         # Reset defense at start of turn
-        heroe.reset_defensa()
+        hero.reset_defense()
 
-        if decision == 1:
-            self._procesar_ataque_heroe(heroe, monstruo)
-        elif decision == 2:
-            self._procesar_defensa_heroe(heroe)
+        if choice == 1:
+            self._process_hero_attack(hero, monster)
+        elif choice == 2:
+            self._process_hero_defense(hero)
         else:
-            self.ui.mostrar_decision_invalida()
+            self.ui.show_invalid_choice()
 
         # Monster turn
-        if monstruo.esta_vivo():
-            self._procesar_turno_monstruo(heroe, monstruo)
+        if monster.is_alive():
+            self._process_monster_turn(hero, monster)
 
-    def _procesar_ataque_heroe(self, heroe: Heroe, monstruo: Monstruo) -> None:
+    def _process_hero_attack(self, hero: Hero, monster: Monster) -> None:
         """
         Process hero attack action.
 
         Args:
-            heroe: Hero character
-            monstruo: Monster character
+            hero: Hero character
+            monster: Monster character
         """
-        heroe.atacar(monstruo)
-        self.ui.mostrar_ataque_exitoso(heroe, monstruo)
+        hero.attack(monster)
+        self.ui.show_successful_attack(hero, monster)
 
-    def _procesar_defensa_heroe(self, heroe: Heroe) -> None:
+    def _process_hero_defense(self, hero: Hero) -> None:
         """
         Process hero defense action.
 
         Args:
-            heroe: Hero character
+            hero: Hero character
         """
-        heroe.defender()
-        self.ui.mostrar_defensa_activada()
+        hero.defend()
+        self.ui.show_defense_activated()
 
-    def _procesar_turno_monstruo(self, heroe: Heroe, monstruo: Monstruo) -> None:
+    def _process_monster_turn(self, hero: Hero, monster: Monster) -> None:
         """
         Process monster turn.
 
         Args:
-            heroe: Hero character
-            monstruo: Monster character
+            hero: Hero character
+            monster: Monster character
         """
-        self.ui.mostrar_ataque_monstruo(monstruo)
+        self.ui.show_monster_attack(monster)
 
-        if heroe.esta_defendiendo:
-            dano = monstruo.ataque // 2
-            heroe.recibir_dano(dano)
-            self.ui.mostrar_defensa_exitosa(dano)
-            heroe.reset_defensa()
+        if hero.is_defending:
+            damage = monster.attack // 2
+            hero.take_damage(damage)
+            self.ui.show_successful_defense(damage)
+            hero.reset_defense()
         else:
-            heroe.recibir_dano(monstruo.ataque)
-            self.ui.mostrar_dano_completo(monstruo, monstruo.ataque)
+            hero.take_damage(monster.attack)
+            self.ui.show_full_damage(monster, monster.attack)
