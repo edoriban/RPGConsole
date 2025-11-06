@@ -34,16 +34,31 @@ class ConsoleUI:
     @staticmethod
     def show_hero_stats(hero) -> None:
         """
-        Display hero statistics.
+        Display detailed hero statistics.
 
         Args:
-            hero: Hero object with name, health, attack attributes
+            hero: Hero object with all attributes
         """
-        print("------------------------------------------------")
-        print(f"Hello, {hero.name}. Your statistics are:")
-        print(f"  Health: {hero.health}")
-        print(f"  Attack: {hero.attack}")
-        print("------------------------------------------------")
+        print("==================================================")
+        print(f"HERO STATUS: {hero.name}")
+        print("==================================================")
+        print(f"Level: {hero.level} (XP: {hero.experience}/{hero.experience_to_next})")
+        print(f"Health: {hero.health}/{hero.base_health + (hero.level - 1) * 10}")
+        print(f"Attack: {hero.get_total_attack()} (Base: {hero.base_attack})")
+        print(f"Skill Points: {hero.skill_points}")
+        print(f"Gold: {hero.inventory.gold}")
+        print("--------------------------------------------------")
+        print("Equipment:")
+        equipped_items = [item for item in hero.inventory.get_all_items()
+                         if hasattr(item, 'equipped') and item.equipped]
+        if equipped_items:
+            for item in equipped_items:
+                print(f"  - {item}")
+        else:
+            print("  - None")
+        print("--------------------------------------------------")
+        print(f"Inventory: {hero.inventory.get_total_slots_used()}/{hero.inventory.max_slots}")
+        print("==================================================")
 
     @staticmethod
     def show_path_menu() -> None:
@@ -117,8 +132,10 @@ class ConsoleUI:
         Args:
             hero: Hero object with attack attribute
         """
-        print(Fore.YELLOW + f"1. Attack ({hero.attack} damage)")
+        print(Fore.YELLOW + f"1. Attack ({hero.get_total_attack()} damage)")
         print(Fore.YELLOW + "2. Defend (reduces next hit by half)")
+        print(Fore.YELLOW + "3. Use Item")
+        print(Fore.YELLOW + "4. Use Skill")
 
     @staticmethod
     def get_combat_choice() -> int:

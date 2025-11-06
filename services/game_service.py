@@ -77,6 +77,13 @@ class GameService:
 
         if victory:
             self.ui.show_victory(monster)
+            # Award experience
+            from services.leveling_service import LevelingService
+            xp_reward = LevelingService.get_experience_reward(1, hero.level)  # Monsters are level 1 for now
+            leveled_up, levels_gained = LevelingService.process_experience_gain(hero, xp_reward)
+            print(f"Gained {xp_reward} experience points!")
+            if leveled_up:
+                print(f"You gained {levels_gained} level(s)!")
         else:
             self.ui.show_defeat(monster)
 

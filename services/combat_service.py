@@ -46,7 +46,7 @@ class CombatService:
 
     def _execute_turn(self, hero: Hero, monster: Monster) -> None:
         """
-        Execute a single combat turn.
+        Execute a single combat turn with three action choices.
 
         Args:
             hero: Hero character
@@ -65,6 +65,10 @@ class CombatService:
             self._process_hero_attack(hero, monster)
         elif choice == 2:
             self._process_hero_defense(hero)
+        elif choice == 3:
+            self._process_item_usage(hero)
+        elif choice == 4:
+            self._process_skill_usage(hero, monster)
         else:
             self.ui.show_invalid_choice()
 
@@ -80,6 +84,7 @@ class CombatService:
             hero: Hero character
             monster: Monster character
         """
+        # Use the attack method from Character class
         hero.attack(monster)
         self.ui.show_successful_attack(hero, monster)
 
@@ -92,6 +97,49 @@ class CombatService:
         """
         hero.defend()
         self.ui.show_defense_activated()
+
+    def _process_item_usage(self, hero: Hero) -> None:
+        """
+        Process item usage action.
+
+        Args:
+            hero: Hero character
+        """
+        consumables = hero.inventory.get_consumables()
+        if not consumables:
+            print("You have no items to use!")
+            return
+
+        print("Available items:")
+        for i, item in enumerate(consumables, 1):
+            print(f"{i}. {item}")
+
+        try:
+            choice = int(input("Choose item to use (0 to cancel): "))
+            if choice == 0:
+                return
+            if 1 <= choice <= len(consumables):
+                selected_item = consumables[choice - 1]
+                if hero.use_item(selected_item.name):
+                    print(f"Used {selected_item.name}!")
+                else:
+                    print(f"Could not use {selected_item.name}!")
+            else:
+                print("Invalid choice!")
+        except ValueError:
+            print("Invalid input!")
+
+    def _process_skill_usage(self, hero, monster) -> None:
+        """
+        Process skill usage action.
+
+        Args:
+            hero: Hero character
+            monster: Monster character
+        """
+        # For now, placeholder - skills system not fully integrated
+        print("Skills system not yet implemented in combat!")
+        print("Use regular attack instead.")
 
     def _process_monster_turn(self, hero: Hero, monster: Monster) -> None:
         """
