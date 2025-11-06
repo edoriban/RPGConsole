@@ -84,7 +84,7 @@ class CombatService:
             hero: Hero character
             monster: Monster character
         """
-        # Use the attack method from Character class
+        # Call the hero's attack method directly
         hero.attack(monster)
         self.ui.show_successful_attack(hero, monster)
 

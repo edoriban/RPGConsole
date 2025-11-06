@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "name": "ed",
+    "health": 0,
+    "attack": 15,
+    "level": 1,
+    "experience": 0,
+    "experience_to_next": 100,
+    "skill_points": 0,
+    "base_health": 100,
+    "base_attack": 15,
+    "inventory": {
+      "max_slots": 20,
+      "gold": 0,
+      "items": {
+        "Iron Sword": [
+          {
+            "name": "Iron Sword",
+            "description": "A basic iron sword for beginners",
+            "value": 50,
+            "rarity": "common",
+            "quantity": 1,
+            "type": "Weapon"
+          }
+        ],
+        "Leather Armor": [
+          {
+            "name": "Leather Armor",
+            "description": "Basic protection made from leather",
+            "value": 30,
+            "rarity": "common",
+            "quantity": 1,
+            "type": "Armor"
+          }
+        ]
+      }
+    }
+  },
+  "current_zone": {
+    "name": "Peaceful Forest",
+    "description": "A quiet forest with tall trees and winding paths",
+    "danger_level": 1,
+    "discovered": true,
+    "visited": true,
+    "type": "CombatZone"
+  },
+  "game_version": "1.0.0",
+  "save_slot": 0
+}

@@ -6,6 +6,7 @@ Educational RPG game demonstrating clean code and SOLID principles.
 from ui.console_ui import ConsoleUI
 from services.combat_service import CombatService
 from services.game_service import GameService
+from services.game_state_service import GameStateService
 
 
 def main():
@@ -13,7 +14,8 @@ def main():
     # Initialize services following Dependency Inversion Principle
     ui = ConsoleUI()
     combat_service = CombatService(ui)
-    game_service = GameService(ui, combat_service)
+    game_state_service = GameStateService()
+    game_service = GameService(ui, combat_service, game_state_service)
 
     # Start the game
     game_service.start_game()
