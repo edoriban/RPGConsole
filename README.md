@@ -1,23 +1,25 @@
-# Aventura RPG - Migración de PSeInt a Python
+# RPGConsole - Juego RPG Educativo
 
-Este proyecto es una migración completa del mini-juego RPG originalmente creado en PSeInt (`AventuraRPG.psc`) a una aplicación funcional en Python. El objetivo es demostrar la transición de un lenguaje educativo a uno profesional, implementando conceptos de Programación Orientada a Objetos (OOP) y mejores prácticas de desarrollo.
+RPGConsole es una aplicación de consola que implementa un mini-juego RPG migrado desde PSeInt a Python, siguiendo los principios SOLID y las mejores prácticas de Clean Code. El proyecto demuestra una arquitectura modular con separación clara de responsabilidades.
 
 ## 🎯 Propósito Educativo
 
 Este proyecto fue creado con fines educativos para la clase de Programación. Sirve como ejemplo práctico de:
 - Migración de código entre lenguajes
-- Implementación de OOP en Python
-- Uso de estructuras de datos (diccionarios)
-- Manejo de entrada/salida en consola
-- Integración de librerías externas (colorama)
+- Programación Orientada a Objetos avanzada
+- Arquitectura modular con separación de responsabilidades
+- Patrón de Inyección de Dependencias
+- Estructuras de datos eficientes
+- Integración de librerías externas
 
 ## 📋 Características
 
-- **Arquitectura OOP**: Clase `Personaje` para manejar tanto al jugador como a los monstruos
-- **Gestión de Datos**: Diccionario `catalogo_monstruos` para almacenar estadísticas de enemigos
-- **Interfaz Mejorada**: Uso de colores con la librería `colorama` para una mejor experiencia visual
-- **Lógica Completa**: Replicación exacta del flujo del juego original en PSeInt
-- **Turnos por Combate**: Sistema de combate por turnos con opciones de ataque y defensa
+- **Arquitectura Modular**: Separación clara entre modelos, servicios, UI y datos
+- **Herencia y Polimorfismo**: Jerarquía de clases Personaje → Heroe/Monstruo
+- **Abstracciones**: Clases abstractas y métodos para extensibilidad
+- **Interfaz Mejorada**: Sistema de colores con `colorama` para mejor UX
+- **Lógica Completa**: Replicación exacta del flujo del juego original
+- **Turnos por Combate**: Sistema de combate por turnos con ataque/defensa
 
 ## 🚀 Requisitos
 
@@ -33,7 +35,7 @@ Este proyecto fue creado con fines educativos para la clase de Programación. Si
    ```
 3. Ejecuta el juego:
    ```bash
-   python aventura_rpg.py
+   python main.py
    ```
 
 ## 🎮 Cómo Jugar
@@ -49,22 +51,21 @@ Este proyecto fue creado con fines educativos para la clase de Programación. Si
 
 ## 🏗️ Arquitectura del Código
 
-### Clase Personaje
-```python
-class Personaje:
-    def __init__(self, nombre, vidas, ataque)
-    def atacar(self, enemigo)
-    def defender(self)
+### Estructura del Proyecto
 ```
-
-### Diccionario de Monstruos
-```python
-catalogo_monstruos = {
-    "Goblin": {"vidas": 60, "ataque": 12},
-    "Ogro": {"vidas": 60, "ataque": 12},
-    "Orco": {"vidas": 60, "ataque": 12},
-    "Slime": {"vidas": 60, "ataque": 12}
-}
+RPGConsole/
+├── main.py                 # Punto de entrada de la aplicación
+├── models/                 # Modelos de dominio del juego
+│   ├── personaje.py        # Clase base abstracta para personajes
+│   ├── heroe.py           # Implementación específica del héroe
+│   └── monstruo.py        # Implementación específica de monstruos
+├── services/              # Servicios de lógica de negocio
+│   ├── game_service.py    # Servicio principal que orquesta el juego
+│   └── combat_service.py  # Servicio que maneja la lógica de combate
+├── ui/                    # Capa de interfaz de usuario
+│   └── console_ui.py      # Interfaz de consola con colores
+└── data/                  # Capa de acceso a datos
+    └── monsters.py        # Catálogo de monstruos disponibles
 ```
 
 ## 🎨 Colores Utilizados
@@ -79,16 +80,20 @@ catalogo_monstruos = {
 - **Secuencial**: Inicio del juego y configuración inicial
 - **Selección**: Menús de decisión (camino y combate)
 - **Repetitiva**: Bucle de combate por turnos
+- **Modular**: Arquitectura separada por responsabilidades
+- **Orientada a Objetos**: Herencia, polimorfismo, abstracción
 
 ## 🔄 Comparación con PSeInt
 
-| Aspecto | PSeInt Original | Python Migrado |
-|---------|----------------|----------------|
+| Aspecto | PSeInt Original | Python RPGConsole |
+|---------|----------------|-------------------|
 | Variables | Variables simples | Atributos de clase |
-| Funciones | No aplicable | Métodos de clase |
-| Datos | Variables individuales | Diccionarios estructurados |
+| Funciones | No aplicable | Métodos especializados |
+| Datos | Variables individuales | Diccionarios + clases |
 | UI | Texto plano | Colores con colorama |
-| Modularidad | Código lineal | OOP con clases |
+| Modularidad | Código lineal | Arquitectura SOLID |
+| Mantenibilidad | Baja | Alta (principios Clean Code) |
+| Extensibilidad | Limitada | Alta (OCP + DIP) |
 
 ## 🤝 Contribuciones
 
