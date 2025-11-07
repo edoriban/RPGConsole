@@ -1,0 +1,30 @@
+# Byte-code files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Test files
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Miscellaneous
+*.log
+*.sqlite3
+*.env
